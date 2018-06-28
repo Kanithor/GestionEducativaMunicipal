@@ -2,7 +2,6 @@ from configuraciones import *
 import psycopg2
 conn = psycopg2.connect("dbname=%s user=%s password=%s"%(database,user,passwd))
 
-
 cur = conn.cursor()
 sql ="""DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;"""
@@ -10,42 +9,71 @@ CREATE SCHEMA public;"""
 cur.execute(sql)
 
 sql ="""
-CREATE TABLE posts 
-           (id serial PRIMARY KEY, titulo varchar(40), resumen varchar, texto text, creado timestamp);
+Create table colegios(
+	id_colegio int NOT NULL,
+	nombre varchar(50),
+	telefono int,
+	categoria int,
+	director varchar(100),
+	PRIMARY KEY (id_colegio)
+);
 """
 
 cur.execute(sql)
 
 
 sql ="""
-CREATE TABLE categorias 
-           (id serial PRIMARY KEY, nombre varchar(40), creado timestamp);
+Create table docentes(
+	rut int NOT NULL,
+	id_colegio int,
+	nombre varchar(50),
+	telefono int,
+	email varchar(50),
+	direccion varchar(100),
+	formacion varchar(100),
+	asignatura varchar(100),
+	PRIMARY KEY (rut),
+	FOREIGN KEY (id_colegio) REFERENCES colegios(id_colegio)
+);
 """
 
 cur.execute(sql)
 
 sql ="""
-CREATE TABLE categorias_posts 
-           (categoria_id integer, post_id integer);
+Create table niveles(
+	id_nivel int NOT NULL,
+	nivel varchar(50),
+	PRIMARY KEY (id_nivel)
+);
 """
 
 cur.execute(sql)
 
 sql ="""
-CREATE TABLE  usuarios
-           (id serial PRIMARY KEY,rol integer, nombre varchar(40),apellido varchar(40),
-           email varchar(100),passwd varchar(255), creado timestamp);
+Create table cursos(
+	id_curso int NOT NULL,
+	promedio float4,
+	cantidadEstudiantes int,
+	id_colegio int,
+	id_nivel int,
+	PRIMARY KEY (id_curso),
+	FOREIGN KEY (id_colegio) REFERENCES colegios(id_colegio),
+	FOREIGN KEY (id_nivel) REFERENCES niveles(id_nivel)
+);
 """
 
 cur.execute(sql)
 
 sql ="""
-CREATE TABLE comentarios
-           (id serial PRIMARY KEY, comentario varchar(140), post_id integer, usuario_id integer, creado timestamp);
+Create table imparte(
+	rut int,
+	id_curso int,
+	FOREIGN KEY (rut) REFERENCES docentes(rut),
+	FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
+);
 """
 
 cur.execute(sql)
-
 
 conn.commit()
 cur.close()
