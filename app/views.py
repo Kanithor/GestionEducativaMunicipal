@@ -11,19 +11,12 @@ cur = conn.cursor()
 @app.route('/index')
 def index():
 	sql ="""
-	select id_colegio,nombre from colegios order by nombre
+	select rut,nombre,asignatura from docentes
 	"""
-	print(sql) 
-	cur.execute(sql)
-	colegios  = cur.fetchall()
-	sql ="""
-	select nombre,asignatura from docentes
-	"""
-	print(sql)
 	cur.execute(sql)
 	docentes  = cur.fetchall()
-	return render_template("index.html",categoria=colegios,post=docentes)
-
+	print(docentes)
+	return render_template("index.html",docentes=docentes)
 
 @app.route('/post/<post_id>', methods=['GET', 'POST'])
 def post(post_id):
