@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Docentes</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="#">Docentes</a></li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<div class="container">
+    <h1>Docentes Municipalidad de la Cisterna</h1>
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+            }
+
+            #myTable {
+            border-collapse: collapse;
+            width: 80%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+            }
+
+            #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTable tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTable tr.header, #myTable tr:hover {
+            background-color: #f1f1f1;
+            }
+            </style>
+    </head>
+<body>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por nombre" title="Type in a name">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:2;">RUT</th>
+    <th style="width:2;">Nombre</th>
+    <th style="width:2;">Formación Académica</th>
+    <th style="width:1;">Colegio</th>
+  </tr>
+  {% for docente in docentes %}
+        <tr>
+            <td>{{docente[0]}}</td>
+            <td>{{docente[1]}}</td>
+            <td>{{docente[2]}}</td>
+            <td>{{docente[3]}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>
+</div>    
+{% endblock %}

@@ -10,13 +10,37 @@ cur = conn.cursor()
 @app.route('/')
 @app.route('/index')
 def index():
+	prueba = "hola"
+	return render_template("index.html",prueba=prueba)
+
+@app.route('/docentes')
+def docentes():
 	sql ="""
-	select rut,nombre,asignatura from docentes
+	select D.rut,D.nombre,D.formacion,C.nombre from docentes as D JOIN colegios as C ON D.id_colegio = C.id_colegio
 	"""
 	cur.execute(sql)
 	docentes  = cur.fetchall()
-	print(docentes)
-	return render_template("index.html",docentes=docentes)
+	return render_template("docentes.html",docentes=docentes)
+
+@app.route('/colegios')
+def colegios():
+	sql ="""
+	select nombre, director, categoria from colegios
+	"""
+	cur.execute(sql)
+	colegios  = cur.fetchall()
+	return render_template("colegios.html",colegios=colegios)
+
+@app.route('/cursos')
+def cursos():
+	sql ="""
+	select CU.id_curso,N.nivel,CU.cantidadEstudiantes,CU.promedio,CO.nombre
+	from cursos as CU JOIN colegios as CO ON CU.id_colegio = CO.id_colegio
+	JOIN niveles as N ON CU.id_nivel = N.id_nivel
+	"""
+	cur.execute(sql)
+	cursos  = cur.fetchall()
+	return render_template("cursos.html",cursos=cursos)
 
 @app.route('/post/<post_id>', methods=['GET', 'POST'])
 def post(post_id):
