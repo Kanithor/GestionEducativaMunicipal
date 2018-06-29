@@ -22,6 +22,11 @@ def docentes():
 	docentes  = cur.fetchall()
 	return render_template("docentes.html",docentes=docentes)
 
+@app.route('/docentes/<rut>')
+def docentesrut(rut):
+	prueba = "hola"
+	return render_template("docenteconfig.html",prueba=prueba)
+
 @app.route('/colegios')
 def colegios():
 	sql ="""
