@@ -10,8 +10,31 @@ cur = conn.cursor()
 @app.route('/')
 @app.route('/index')
 def index():
-	prueba = "hola"
-	return render_template("index.html",prueba=prueba)
+	sql ="""
+	select count(*) from colegios
+	"""
+	cur.execute(sql)
+	colegios  = cur.fetchone()
+
+	sql ="""
+	select count(*) from cursos
+	"""
+	cur.execute(sql)
+	cursos  = cur.fetchone()
+
+	sql ="""
+	select count(*) from docentes
+	"""
+	cur.execute(sql)
+	docentes  = cur.fetchone()
+
+	sql ="""
+	select sum(cantidadEstudiantes) from cursos
+	"""
+	cur.execute(sql)
+	estudiantes  = cur.fetchone()
+
+	return render_template("index.html",colegios=colegios,cursos = cursos,docentes = docentes,estudiantes=estudiantes)
 
 @app.route('/docentes')
 def docentes():
@@ -30,7 +53,7 @@ def docentesrut(rut):
 @app.route('/colegios')
 def colegios():
 	sql ="""
-	select nombre, director, categoria from colegios
+	select id_colegio, nombre, director, categoria from colegios
 	"""
 	cur.execute(sql)
 	colegios  = cur.fetchall()
