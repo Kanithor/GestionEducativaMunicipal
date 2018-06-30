@@ -29,6 +29,7 @@ Create table docentes(
 	nombre varchar(50),
 	telefono int,
 	email varchar(50),
+	calificacion float4,
 	direccion varchar(100),
 	formacion varchar(100),
 	asignatura varchar(100),

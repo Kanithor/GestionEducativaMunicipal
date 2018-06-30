@@ -47,4 +47,94 @@
                 </div>
             </div>
     </div>
+    <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="white-box">
+                    <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                    </div>
+                    <h3 class="box-title">TOP 5 Docentes</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>RUT</th>
+                                    <th>Nombre</th>
+                                    <th>Formación Acádemica</th>
+                                    <th>Colegio</th>
+                                    <th>Calificación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% for top5docente in top5docentes %}
+                                    <tr>
+                                        <td>{{top5docente[0]}}</td>
+                                        <td>{{top5docente[1]}}</td>
+                                        <td>{{top5docente[2]}}</td>
+                                        <td>{{top5docente[3]}}</td>
+                                        <td>{{top5docente[4]}}</td>
+                                    </tr>
+                                    {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="white-box">
+                        <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                        </div>
+                        <h3 class="box-title">TOP Directores</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Colegio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        {% for director in directores %}
+                                        <tr>
+                                            <td>{{director[0]}}</td>
+                                            <td>{{director[1]}}</td>
+                                            <td>{{director[2]}}</td>
+                                            <td>{{director[3]}}</td>
+                                            <td>{{director[4]}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                            </div>
+                            <h3 class="box-title">TOP Cursos</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nivel</th>
+                                            <th>Promedio</th>
+                                            <th>Colegio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {% for topcurso in topcursos %}
+                                            <tr>
+                                                <td>{{topcurso[0]}}</td>
+                                                <td>{{topcurso[1]}}</td>
+                                                <td>{{topcurso[2]}}</td>
+                                                <td>{{topcurso[3]}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+        </div>
 {% endblock %}
