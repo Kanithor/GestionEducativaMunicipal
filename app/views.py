@@ -70,7 +70,15 @@ def docentesrut(rut):
 	"""%rut
 	cur.execute(sql)
 	cursosdocentes  = cur.fetchall()
-	return render_template("docenteconfig.html",cursosdocentes=cursosdocentes)
+	sql = """select * from docentes where rut = %s"""%rut
+	cur.execute(sql)
+	docente  = cur.fetchone()
+
+	sql = """select nombre from colegios"""
+	cur.execute(sql)
+	colegios  = cur.fetchall()
+
+	return render_template("docenteconfig.html",cursosdocentes=cursosdocentes,docente=docente,colegios=colegios)
 
 @app.route('/colegios')
 def colegios():
