@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<div class="container">
+    <h1>Perfil Docente</h1>
 <html lang="en">
         <div id="page-wrapper">
             <div class="container-fluid">
-                <div class="row bg-title">
-                        <h4 class="page-title">Perfil Docente</h4>
-                </div>
                 <!-- /.row -->
                 <!-- .row -->
                 <div class="row">
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-6 col-xs-12 col-lg-14">
                         <div class="white-box">
-                            <div class="user-bg"> <img width="100%" alt="user" src="../static/plugins/images/large/img1.jpg">
+                            <div class="user-bg"> <img width="100%" alt="user" src="../static/plugins/images/large/docente.jpg">
                                 <div class="overlay-box">
                                     <div class="user-content">
-                                        <a href="javascript:void(0)"><img src="../static/plugins/images/users/genu.jpg" class="thumb-lg img-circle" alt="img"></a>
+                                        <a href="javascript:void(0)"><img src="../static/plugins/images/users/docente.png" class="thumb-lg img-circle" alt="img"></a>
                                         <h4 class="text-white">{{docente[2]}}</h4>
                                         <h5 class="text-white">{{docente[4]}}</h5> </div>
                                 </div>
@@ -25,48 +25,83 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class = "row">
+                            <div class="col-md-4 col-lg-10 col-sm-12">
+                                    <div class="white-box">
+                                        <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                                        </div>
+                                        <h3 class="box-title">Cursos Asignados</h3>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Nivel</th>
+                                                        <th>Promedio</th>
+                                                        <th>Colegio</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                        {% for cursosdocente in cursosdocentes %}
+                                                        <tr>
+                                                            <td>{{cursosdocente[0]}}</td>
+                                                            <td>{{cursosdocente[1]}}</td>
+                                                            <td>{{cursosdocente[2]}}</td>
+                                                            <td>{{cursosdocente[3]}}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
                             <form class="form-horizontal form-material">
                                 <div class="form-group">
                                     <label class="col-md-12">Nombre Completo</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder={{docente[2]}} class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Ingrese Nombre Completo" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">RUT</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder={{docente[0]}} class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Ingrese RUT" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="nombre@edu.cl" class="form-control form-control-line" name="example-email" id="example-email"> </div>
+                                        <input type="email" placeholder="Ingrese email" class="form-control form-control-line" name="example-email" id="example-email"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Número de Teléfono</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="{{docente[4]}}" class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Ingrese número" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Dirección</label>
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Ingrese Dirección" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Formación Acádemica</label>
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Ingrese formación acádemica (Licenciatura, Pedagogía o equivalente)" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Asignatura</label>
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Ingrese Asignatura a Dictar" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Calificación</label>
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Ingrese calificación" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-12">Seleccionar Colegio</label>
@@ -87,37 +122,6 @@
                         </div>
                     </div>
                 </div>
-                    <div class = "row">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="white-box">
-                                <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
-                                </div>
-                                <h3 class="box-title">Cursos Asignados</h3>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Nivel</th>
-                                                <th>Promedio</th>
-                                                <th>Colegio</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                {% for cursosdocente in cursosdocentes %}
-                                                <tr>
-                                                    <td>{{cursosdocente[0]}}</td>
-                                                    <td>{{cursosdocente[1]}}</td>
-                                                    <td>{{cursosdocente[2]}}</td>
-                                                    <td>{{cursosdocente[3]}}</td>
-                                                </tr>
-                                                {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 <!-- /.row -->
             </div>
         </div>
@@ -137,5 +141,5 @@
     <!-- Custom Theme JavaScript -->
     <script src="static/js/custom.min.js"></script>
 </html>
-
+</div>
 {% endblock %}

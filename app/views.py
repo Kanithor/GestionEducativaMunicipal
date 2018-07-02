@@ -97,7 +97,12 @@ JOIN colegios as CO ON CO.id_colegio = CU.id_colegio where CO.id_colegio = %s
 	"""%id
 	cur.execute(sql)
 	cursoscolegios  = cur.fetchall()
-	return render_template("colegioconfig.html",cursoscolegios=cursoscolegios)
+
+	sql="""select * from colegios where id_colegio = %s"""%id
+	cur.execute(sql)
+	colegio  = cur.fetchone()
+
+	return render_template("colegioconfig.html",cursoscolegios=cursoscolegios,colegio=colegio)
 
 @app.route('/cursos')
 def cursos():
@@ -110,80 +115,19 @@ def cursos():
 	cursos  = cur.fetchall()
 	return render_template("cursos.html",cursos=cursos)
 
-@app.route('/post/<post_id>', methods=['GET', 'POST'])
-def post(post_id):
-	if request.method == 'POST':
-		comentario =  request.form['comentarios']
-		print(comentario)
-		sql = """ insert into comentarios  
-		(post_id,usuario_id,creado,comentario) 
-		values (%s,1,now(),'%s' ) """%(post_id,comentario)
-		cur.execute(sql)
-		conn.commit()
-
+@app.route('/cursos/<id>')
+def cursosid(id):
 	sql ="""
-	select id,titulo,texto from posts where id = %s
-	"""%post_id
-	print(sql)
+	select D.rut, D.nombre, D.asignatura from docentes as D JOIN imparte as I ON D.rut = I.rut JOIN cursos as CU
+	ON CU.id_curso = I.id_curso where CU.id_curso = %s
+	"""%id
 	cur.execute(sql)
-	post  = cur.fetchone()
+	docentescurso  = cur.fetchall()
 
-	sql ="""
-	select id,nombre from categorias,categorias_posts 
-	where categorias_posts.categoria_id = categorias.id 
-	and post_id = %s 
-	"""%(post_id)
-	print(sql)
+	sql="""select CU.id_curso,N.nivel ,CO.nombre, CU.promedio, CU.cantidadestudiantes  from cursos as CU 
+	JOIN niveles as N ON N.id_nivel = CU.id_nivel JOIN colegios as CO ON CO.id_colegio = CU.id_colegio 
+	where CU.id_curso = %s"""%id
 	cur.execute(sql)
-	categorias  = cur.fetchall()
+	curso  = cur.fetchone()
 
-	sql ="""
-	select comentarios.id,nombre,apellido,comentario
-	
-	from usuarios,comentarios 
-	where comentarios.usuario_id = usuarios.id 
-	and post_id = %s order by id desc
-	"""%(post_id)
-	print(sql)
-	cur.execute(sql)
-	comentarios  = cur.fetchall()
-	return render_template("post.html",post= post,categorias=categorias,comentarios= comentarios) 
-
-
-@app.route('/comentario/<id>', methods=['GET', 'POST'])
-def comentario(id):
-	if request.method == 'POST':
-		comentario =  request.form['comentarios']
-		print(comentario)
-		sql = """ update comentarios  set comentario = '%s'
-		where id = %s """%(comentario,id)
-		cur.execute(sql)
-		conn.commit()
-
-
-	sql ="""
-	select comentarios.id,nombre,apellido,comentario
-	
-	from usuarios,comentarios 
-	where comentarios.usuario_id = usuarios.id 
-	and comentarios.id = %s order by id desc
-	"""%(id)
-	print(sql)
-	cur.execute(sql)
-	comentario  = cur.fetchone()
-	return render_template("comentario.html",comentario= comentario) 
-
-
-@app.route('/borrar/<id>', methods=['GET', 'POST'])
-def borrar(id):
-
-
-	sql ="""
-		delete from comentarios where id = %s
-	"""%(id)
-	print(sql)
-	cur.execute(sql)
-	conn.commit()
-	return  redirect(request.referrer)
-
-
+	return render_template("cursoconfig.html",docentescurso=docentescurso,curso=curso)

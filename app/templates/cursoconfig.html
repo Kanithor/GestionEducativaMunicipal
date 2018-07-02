@@ -14,13 +14,14 @@
                             <div class="user-bg"> <img width="100%" alt="user" src="../static/plugins/images/large/docente.jpg">
                                 <div class="overlay-box">
                                     <div class="user-content">
-                                        <a href="javascript:void(0)"><img src="../static/plugins/images/users/colegio.png" class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white">{{colegio[1]}}</h4>
-                                        <h5 class="text-white">{{colegio[5]}}</h5> </div>
+                                        <a href="javascript:void(0)"><img src="../static/plugins/images/users/curso.png" class="thumb-lg img-circle" alt="img"></a>
+                                        <h4 class="text-white">{{curso[1]}}</h4>
+                                        <h5 class="text-white">{{curso[2]}}</h5> </div>
                                 </div>
                             </div>
                             <div class="user-btm-box">
-                                <h1>{{colegio[2]}}</h1>
+                                <h2>Promedio: {{curso[3]}}</h2>
+                                <h2>Estudiantes: {{curso[4]}}</h2>
                             </div>
                         </div>
                     </div>
@@ -35,19 +36,17 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Nivel</th>
-                                                    <th>Promedio</th>
-                                                    <th>Cantidad Estudiantes</th>
+                                                    <th>RUT</th>
+                                                    <th>Nombre</th>
+                                                    <th>Asignatura</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                    {% for cursocolegio in cursoscolegios %}
+                                                    {% for docentecurso in docentescurso %}
                                                     <tr>
-                                                        <td>{{cursocolegio[0]}}</td>
-                                                        <td>{{cursocolegio[1]}}</td>
-                                                        <td>{{cursocolegio[2]}}</td>
-                                                        <td>{{cursocolegio[3]}}</td>
+                                                        <td>{{docentecurso[0]}}</td>
+                                                        <td>{{docentecurso[1]}}</td>
+                                                        <td>{{docentecurso[2]}}</td>
                                                     </tr>
                                                     {% endfor %}
                                             </tbody>
@@ -112,5 +111,4 @@
 </html>
 
 </div>
-
 {% endblock %}
