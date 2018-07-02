@@ -59,7 +59,13 @@ def docentes():
 	"""
 	cur.execute(sql)
 	docentes  = cur.fetchall()
-	return render_template("docentes.html",docentes=docentes)
+
+	sql = """select id_colegio,nombre from colegios"""
+	cur.execute(sql)
+	colegios  = cur.fetchall()
+
+	return render_template("docentes.html",docentes=docentes,colegios=colegios)
+
 
 @app.route('/docentes/<rut>')
 def docentesrut(rut):
@@ -70,11 +76,12 @@ def docentesrut(rut):
 	"""%rut
 	cur.execute(sql)
 	cursosdocentes  = cur.fetchall()
-	sql = """select * from docentes where rut = %s"""%rut
+	sql = """select D.rut,CO.nombre,D.nombre,D.telefono,D.email,D.calificacion,D.direccion,
+	D.formacion,D.asignatura from docentes as D JOIN colegios as CO ON D.id_colegio = CO.id_colegio where rut = %s"""%rut
 	cur.execute(sql)
 	docente  = cur.fetchone()
 
-	sql = """select nombre from colegios"""
+	sql = """select id_colegio,nombre from colegios"""
 	cur.execute(sql)
 	colegios  = cur.fetchall()
 
@@ -113,7 +120,20 @@ def cursos():
 	"""
 	cur.execute(sql)
 	cursos  = cur.fetchall()
-	return render_template("cursos.html",cursos=cursos)
+
+	sql ="""
+	select id_colegio,nombre from colegios
+	"""
+	cur.execute(sql)
+	colegios  = cur.fetchall()
+
+	sql ="""
+	select id_nivel,nivel from niveles
+	"""
+	cur.execute(sql)
+	niveles  = cur.fetchall()
+
+	return render_template("cursos.html",cursos=cursos,colegios=colegios,niveles=niveles)
 
 @app.route('/cursos/<id>')
 def cursosid(id):
@@ -130,4 +150,16 @@ def cursosid(id):
 	cur.execute(sql)
 	curso  = cur.fetchone()
 
-	return render_template("cursoconfig.html",docentescurso=docentescurso,curso=curso)
+	sql ="""
+	select id_colegio,nombre from colegios
+	"""
+	cur.execute(sql)
+	colegios  = cur.fetchall()
+
+	sql ="""
+	select id_nivel,nivel from niveles
+	"""
+	cur.execute(sql)
+	niveles  = cur.fetchall()
+
+	return render_template("cursoconfig.html",docentescurso=docentescurso,curso=curso,colegios=colegios,niveles=niveles)

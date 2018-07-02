@@ -10,7 +10,7 @@ cur.execute(sql)
 
 sql ="""
 Create table colegios(
-	id_colegio int NOT NULL,
+	id_colegio serial,
 	nombre varchar(50),
 	telefono int,
 	categoria int,
@@ -24,7 +24,7 @@ cur.execute(sql)
 
 sql ="""
 Create table docentes(
-	rut int NOT NULL,
+	rut serial,
 	id_colegio int,
 	nombre varchar(50),
 	telefono int,
@@ -42,7 +42,7 @@ cur.execute(sql)
 
 sql ="""
 Create table niveles(
-	id_nivel int NOT NULL,
+	id_nivel serial,
 	nivel varchar(50),
 	PRIMARY KEY (id_nivel)
 );
@@ -52,7 +52,7 @@ cur.execute(sql)
 
 sql ="""
 Create table cursos(
-	id_curso int NOT NULL,
+	id_curso serial,
 	promedio float4,
 	cantidadEstudiantes int,
 	id_colegio int,

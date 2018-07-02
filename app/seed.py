@@ -4,15 +4,15 @@ conn = psycopg2.connect("dbname=%s user=%s password=%s"%(database,user,passwd))
 cur = conn.cursor()
 
 sql ="""
-insert into colegios (id_colegio,nombre,telefono,categoria,director) values 
-(1,'COLEGIO ECOLÓGICO Y MEDIOAMBIENTAL ANTÚ',225586635,1,'Roxana Díaz Armijo'),
-(2,'LICEO POLITÉCNICO CIENCIA Y TECNOLOGÍA',225584253,2,'Alicia Santibáñez Arcos'),
-(3,'COLEGIO DE ROBÓTICA Y TECNOLOGÍA ESPERANZA JÓVEN',225210937,0,'Irene Montaño Espinoza'),
-(4,'ESCUELA DEPORTIVA NACIONES UNIDAS',225586869,2,'Karina Labbe Bustos'),
-(5,'COLEGIO ECOLÓGICO Y MEDIOAMBIENTAL OLOF PALME',225583521,1,'Jaime Olate Ruz'),
-(6,'ESCUELA DE ARTES Y CULTURA BOMBERO OSCAR ENCALADA',225583187,1,'Mireya Cordero Venegas'),
-(7,'COLEGIO CÍVICO PRE-MILITAR PALESTINO',944059860,0,'Claudia Moragrega'),
-(8,'LICEO PORTAL DE LA CISTERNA',225252715,2,'Juan Claudio González Poblete');
+insert into colegios (nombre,telefono,categoria,director) values 
+('COLEGIO ECOLÓGICO Y MEDIOAMBIENTAL ANTÚ',225586635,1,'Roxana Díaz Armijo'),
+('LICEO POLITÉCNICO CIENCIA Y TECNOLOGÍA',225584253,2,'Alicia Santibáñez Arcos'),
+('COLEGIO DE ROBÓTICA Y TECNOLOGÍA ESPERANZA JÓVEN',225210937,0,'Irene Montaño Espinoza'),
+('ESCUELA DEPORTIVA NACIONES UNIDAS',225586869,2,'Karina Labbe Bustos'),
+('COLEGIO ECOLÓGICO Y MEDIOAMBIENTAL OLOF PALME',225583521,1,'Jaime Olate Ruz'),
+('ESCUELA DE ARTES Y CULTURA BOMBERO OSCAR ENCALADA',225583187,1,'Mireya Cordero Venegas'),
+('COLEGIO CÍVICO PRE-MILITAR PALESTINO',944059860,0,'Claudia Moragrega'),
+('LICEO PORTAL DE LA CISTERNA',225252715,2,'Juan Claudio González Poblete');
 """
 cur.execute(sql)
 
@@ -46,48 +46,48 @@ insert into docentes (rut,id_colegio,nombre,telefono,email,direccion,formacion,a
 cur.execute(sql)
 
 sql ="""
-insert into niveles (id_nivel,nivel) values 
-(1,'NM1'),
-(2,'NM2'),
-(3,'NM3'),
-(4,'NM4');
+insert into niveles (nivel) values 
+('NM1'),
+('NM2'),
+('NM3'),
+('NM4');
 """
 cur.execute(sql)
 
 sql ="""
-insert into cursos (id_curso,promedio,cantidadEstudiantes,id_colegio,id_nivel) values
-(1,5.7,40,1,1),
-(2,6.1,43,2,1),
-(3,5.4,44,3,1),
-(4,5.9,36,4,1),
-(5,6.8,34,5,1),
-(6,5.3,47,6,1),
-(7,5.2,48,7,1),
-(8,5.8,38,8,1),
-(9,5.6,40,1,2),
-(10,5.5,43,2,2),
-(11,6.8,42,3,2),
-(12,5.8,43,4,2),
-(13,5.1,38,5,2),
-(14,5.2,39,6,2),
-(15,5.9,41,7,2),
-(16,6.1,40,8,2),
-(17,4.8,42,1,3),
-(18,5.6,43,2,3),
-(19,5.7,36,3,3),
-(20,5.8,33,4,3),
-(21,5.5,32,5,3),
-(22,5.6,45,6,3),
-(23,5.7,40,7,3),
-(24,5.8,41,8,3),
-(25,4.8,42,1,4),
-(26,5.6,35,2,4),
-(27,5.7,32,3,4),
-(28,5.8,33,4,4),
-(29,5.5,36,5,4),
-(30,5.6,37,6,4),
-(31,5.7,38,7,4),
-(32,5.8,39,8,4);
+insert into cursos (promedio,cantidadEstudiantes,id_colegio,id_nivel) values
+(5.7,40,1,1),
+(6.1,43,2,1),
+(5.4,44,3,1),
+(5.9,36,4,1),
+(6.8,34,5,1),
+(5.3,47,6,1),
+(5.2,48,7,1),
+(5.8,38,8,1),
+(5.6,40,1,2),
+(5.5,43,2,2),
+(6.8,42,3,2),
+(5.8,43,4,2),
+(5.1,38,5,2),
+(5.2,39,6,2),
+(5.9,41,7,2),
+(6.1,40,8,2),
+(4.8,42,1,3),
+(5.6,43,2,3),
+(5.7,36,3,3),
+(5.8,33,4,3),
+(5.5,32,5,3),
+(5.6,45,6,3),
+(5.7,40,7,3),
+(5.8,41,8,3),
+(4.8,42,1,4),
+(5.6,35,2,4),
+(5.7,32,3,4),
+(5.8,33,4,4),
+(5.5,36,5,4),
+(5.6,37,6,4),
+(5.7,38,7,4),
+(5.8,39,8,4);
 """
 cur.execute(sql)
 

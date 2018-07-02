@@ -31,7 +31,7 @@
                                 <div class="white-box">
                                     <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
                                     </div>
-                                    <h3 class="box-title">Cursos</h3>
+                                    <h3 class="box-title">Docentes</h3>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
@@ -56,30 +56,38 @@
                             </div>
                         </div>
 
-
-
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
                             <form class="form-horizontal form-material">
                                 <div class="form-group">
-                                    <label class="col-md-12">Nombre</label>
+                                    <label class="col-md-12">Promedio</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Director</label>
+                                    <label class="col-md-12">Cantidad de Estudiantes</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Número de Teléfono</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="" class="form-control form-control-line"> </div>
+                                        <label class="col-sm-12">Seleccionar Establecimiento</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control form-control-line">
+                                                {% for colegio in colegios %}
+                                                <option value="{{colegio[0]}}">{{colegio[1]}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Categoría</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="" class="form-control form-control-line"> </div>
+                                        <label class="col-sm-12">Seleccionar Nivel</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control form-control-line">
+                                                {% for nivel in niveles %}
+                                                <option value="{{nivel[0]}}">{{nivel[1]}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">

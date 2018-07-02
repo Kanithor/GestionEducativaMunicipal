@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <div class="container">
     <h1>Perfil Docente</h1>
 <html lang="en">
@@ -21,7 +20,13 @@
                                 </div>
                             </div>
                             <div class="user-btm-box">
-                                <h1>{{docente[3]}}</h1>
+                                <h1>Calificación: {{docente[5]}}</h1>
+                                <h2>Establecimiento: {{docente[1]}}</h2>
+                                <h2>Formación: {{docente[7]}}</h2>
+                                <h2>Asignatura: {{docente[8]}}</h2>
+                                <h2>Teléfono: {{docente[3]}}</h2>
+                                <h2>Dirección: {{docente[6]}}</h2>
+                                
                             </div>
                         </div>
                     </div>
@@ -69,11 +74,6 @@
                                         <input type="text" placeholder="Ingrese Nombre Completo" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">RUT</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="Ingrese RUT" class="form-control form-control-line"> </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
                                         <input type="email" placeholder="Ingrese email" class="form-control form-control-line" name="example-email" id="example-email"> </div>
@@ -104,11 +104,11 @@
                                         <input type="text" placeholder="Ingrese calificación" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-12">Seleccionar Colegio</label>
+                                    <label class="col-sm-12">Seleccionar Establecimiento</label>
                                     <div class="col-sm-12">
                                         <select class="form-control form-control-line">
                                             {% for colegio in colegios %}
-                                            <option>{{colegio[0]}}</option>
+                                            <option value="{{colegio[0]}}">{{colegio[1]}}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
