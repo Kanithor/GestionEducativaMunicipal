@@ -87,6 +87,15 @@ def docentesrut(rut):
 
 	return render_template("docenteconfig.html",cursosdocentes=cursosdocentes,docente=docente,colegios=colegios)
 
+@app.route('/docentes/eliminar/<rut>', methods=['GET', 'POST'])
+def borrardocente(rut):
+	sql ="""
+		delete from docentes where rut = %s
+	"""%(rut)
+	cur.execute(sql)
+	conn.commit()
+	return  redirect(request.referrer)
+
 @app.route('/colegios')
 def colegios():
 	sql ="""
@@ -110,6 +119,15 @@ JOIN colegios as CO ON CO.id_colegio = CU.id_colegio where CO.id_colegio = %s
 	colegio  = cur.fetchone()
 
 	return render_template("colegioconfig.html",cursoscolegios=cursoscolegios,colegio=colegio)
+
+@app.route('/colegios/eliminar/<id>', methods=['GET', 'POST'])
+def borrarcolegio(id):
+	sql ="""
+		delete from colegios where id_colegio = %s
+	"""%(id)
+	cur.execute(sql)
+	conn.commit()
+	return  redirect(request.referrer)
 
 @app.route('/cursos')
 def cursos():
@@ -163,3 +181,12 @@ def cursosid(id):
 	niveles  = cur.fetchall()
 
 	return render_template("cursoconfig.html",docentescurso=docentescurso,curso=curso,colegios=colegios,niveles=niveles)
+
+@app.route('/cursos/eliminar/<id>', methods=['GET', 'POST'])
+def borrarcurso(id):
+	sql ="""
+		delete from cursos where id_curso = %s
+	"""%(id)
+	cur.execute(sql)
+	conn.commit()
+	return  redirect(request.referrer)

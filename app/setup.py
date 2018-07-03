@@ -35,6 +35,7 @@ Create table docentes(
 	asignatura varchar(100),
 	PRIMARY KEY (rut),
 	FOREIGN KEY (id_colegio) REFERENCES colegios(id_colegio)
+	ON DELETE CASCADE
 );
 """
 
@@ -58,8 +59,8 @@ Create table cursos(
 	id_colegio int,
 	id_nivel int,
 	PRIMARY KEY (id_curso),
-	FOREIGN KEY (id_colegio) REFERENCES colegios(id_colegio),
-	FOREIGN KEY (id_nivel) REFERENCES niveles(id_nivel)
+	FOREIGN KEY (id_colegio) REFERENCES colegios(id_colegio) ON DELETE CASCADE,
+	FOREIGN KEY (id_nivel) REFERENCES niveles(id_nivel) ON DELETE CASCADE
 );
 """
 
@@ -69,8 +70,8 @@ sql ="""
 Create table imparte(
 	rut int,
 	id_curso int,
-	FOREIGN KEY (rut) REFERENCES docentes(rut),
-	FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
+	FOREIGN KEY (rut) REFERENCES docentes(rut) ON DELETE CASCADE,
+	FOREIGN KEY (id_curso) REFERENCES cursos(id_curso) ON DELETE CASCADE
 );
 """
 
