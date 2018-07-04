@@ -23,7 +23,6 @@
                                 <h1>Calificación: {{docente[5]}}</h1>
                                 <h2>Establecimiento: {{docente[1]}}</h2>
                                 <h2>Formación: {{docente[7]}}</h2>
-                                <h2>Asignatura: {{docente[8]}}</h2>
                                 <h2>Teléfono: {{docente[3]}}</h2>
                                 <h2>Dirección: {{docente[6]}}</h2>
                                 
@@ -43,6 +42,7 @@
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>Nivel</th>
+                                                        <th>Asignatura</th>
                                                         <th>Promedio</th>
                                                         <th>Colegio</th>
                                                     </tr>
@@ -54,6 +54,7 @@
                                                             <td>{{cursosdocente[1]}}</td>
                                                             <td>{{cursosdocente[2]}}</td>
                                                             <td>{{cursosdocente[3]}}</td>
+                                                            <td>{{cursosdocente[4]}}</td>
                                                         </tr>
                                                         {% endfor %}
                                                 </tbody>
@@ -63,10 +64,9 @@
                                 </div>
                             </div>
 
-
-
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
+                            <h2 class="box-title">Actualizar Perfil</h2>
                             <form class="form-horizontal form-material">
                                 <div class="form-group">
                                     <label class="col-md-12">Nombre Completo</label>
@@ -92,11 +92,6 @@
                                     <label class="col-md-12">Formación Acádemica</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Ingrese formación acádemica (Licenciatura, Pedagogía o equivalente)" class="form-control form-control-line"> </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Asignatura</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="Ingrese Asignatura a Dictar" class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Calificación</label>

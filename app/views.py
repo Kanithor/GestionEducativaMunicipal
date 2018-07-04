@@ -70,14 +70,14 @@ def docentes():
 @app.route('/docentes/<rut>')
 def docentesrut(rut):
 	sql ="""
-	select CU.id_curso, N.nivel, CU.promedio, CO.nombre from cursos as CU JOIN imparte as I ON CU.id_curso = I.id_curso JOIN 
+	select CU.id_curso, N.nivel, I.asignatura, CU.promedio, CO.nombre from cursos as CU JOIN imparte as I ON CU.id_curso = I.id_curso JOIN 
 	docentes as D ON D.rut = I.rut JOIN niveles as N ON N.id_nivel = CU.id_nivel JOIN colegios as CO ON
 	CO.id_colegio = CU.id_colegio where D.rut = %s
 	"""%rut
 	cur.execute(sql)
 	cursosdocentes  = cur.fetchall()
 	sql = """select D.rut,CO.nombre,D.nombre,D.telefono,D.email,D.calificacion,D.direccion,
-	D.formacion,D.asignatura from docentes as D JOIN colegios as CO ON D.id_colegio = CO.id_colegio where rut = %s"""%rut
+	D.formacion from docentes as D JOIN colegios as CO ON D.id_colegio = CO.id_colegio where rut = %s"""%rut
 	cur.execute(sql)
 	docente  = cur.fetchone()
 
@@ -156,7 +156,7 @@ def cursos():
 @app.route('/cursos/<id>')
 def cursosid(id):
 	sql ="""
-	select D.rut, D.nombre, D.asignatura from docentes as D JOIN imparte as I ON D.rut = I.rut JOIN cursos as CU
+	select D.rut, D.nombre, I.asignatura from docentes as D JOIN imparte as I ON D.rut = I.rut JOIN cursos as CU
 	ON CU.id_curso = I.id_curso where CU.id_curso = %s
 	"""%id
 	cur.execute(sql)
@@ -180,7 +180,14 @@ def cursosid(id):
 	cur.execute(sql)
 	niveles  = cur.fetchall()
 
-	return render_template("cursoconfig.html",docentescurso=docentescurso,curso=curso,colegios=colegios,niveles=niveles)
+	sql=""" 
+	select D.rut, D.nombre from docentes as D JOIN colegios as CO ON D.id_colegio = CO.id_colegio
+	JOIN cursos as CU ON CO.id_colegio = CU.id_colegio where CU.id_curso = %s
+	"""%id
+	cur.execute(sql)
+	docentesseleccion = cur.fetchall()
+
+	return render_template("cursoconfig.html",docentescurso=docentescurso,curso=curso,colegios=colegios,niveles=niveles,docentesseleccion=docentesseleccion)
 
 @app.route('/cursos/eliminar/<id>', methods=['GET', 'POST'])
 def borrarcurso(id):
