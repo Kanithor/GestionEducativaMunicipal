@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template,request,redirect
 from app.configuraciones import *
+from app.forms import DocenteForm
 
 import psycopg2
 
@@ -52,25 +53,43 @@ def index():
 
 	return render_template("index.html",colegios=colegios,cursos = cursos,docentes = docentes,estudiantes=estudiantes,top5docentes = top5docentes, directores = directores, topcursos = topcursos)
 
-@app.route('/docentes')
+@app.route('/docentes', methods=['POST', 'GET'])
 def docentes():
-	sql ="""
-	select D.rut,D.nombre,D.formacion,C.nombre from docentes as D JOIN colegios as C ON D.id_colegio = C.id_colegio
-	"""
-	cur.execute(sql)
-	docentes  = cur.fetchall()
+	if request.method == 'GET':
+		sql ="""
+		select D.rut,D.nombre,D.formacion,C.nombre from docentes as D JOIN colegios as C ON D.id_colegio = C.id_colegio
+		"""
+		cur.execute(sql)
+		docentes  = cur.fetchall()
 
-	sql = """select id_colegio,nombre from colegios"""
-	cur.execute(sql)
-	colegios  = cur.fetchall()
+		sql = """select id_colegio,nombre from colegios"""
+		cur.execute(sql)
+		colegios  = cur.fetchall()
 
-	return render_template("docentes.html",docentes=docentes,colegios=colegios)
+		return render_template("docentes.html",docentes=docentes,colegios=colegios)
+	
+	elif request.method == 'POST':
+		
+		nombre =  request.form['nombre']
+		rut =  request.form['rut']
+		email =  request.form['email']
+		telefono =  request.form['telefono']
+		direccion = request.form['direccion']
+		formacionacademica = request.form['formacionacademica']
+		calificacion = request.form['calificacion']
+		id_colegio = request.form['id_colegio']
+		sql = """ INSERT INTO docentes set(rut,id_colegio,nombre,email,telefono,direccion,formacionacademica,calificacion) = 
+		values('%s','%s',%s,'%s','%s','%s','%s','%s','%s')
+		"""%(rut,id_colegio,nombre,email,telefono,direccion,formacionacademica,calificacion)
+		cur.execute(sql)
+		conn.commit()
+		return redirect(request.referrer)
 
 
-@app.route('/docentes/<rut>')
+@app.route('/docentes/<rut>', methods=['GET', 'POST'])
 def docentesrut(rut):
 	sql ="""
-	select CU.id_curso, N.nivel, I.asignatura, CU.promedio, CO.nombre from cursos as CU JOIN imparte as I ON CU.id_curso = I.id_curso JOIN 
+	select CU.id_curso, N.nivel, D.asignatura, CU.promedio, CO.nombre from cursos as CU JOIN imparte as I ON CU.id_curso = I.id_curso JOIN 
 	docentes as D ON D.rut = I.rut JOIN niveles as N ON N.id_nivel = CU.id_nivel JOIN colegios as CO ON
 	CO.id_colegio = CU.id_colegio where D.rut = %s
 	"""%rut
@@ -87,6 +106,7 @@ def docentesrut(rut):
 
 	return render_template("docenteconfig.html",cursosdocentes=cursosdocentes,docente=docente,colegios=colegios)
 
+
 @app.route('/docentes/eliminar/<rut>', methods=['GET', 'POST'])
 def borrardocente(rut):
 	sql ="""
@@ -95,6 +115,23 @@ def borrardocente(rut):
 	cur.execute(sql)
 	conn.commit()
 	return  redirect(request.referrer)
+
+@app.route('/docentes/<rut>/update', methods=['GET', 'POST'])
+def updatedocente(rut):
+	if request.method == 'POST':
+		nombre =  request.form['nombre']
+		email =  request.form['email']
+		telefono =  request.form['telefono']
+		direccion =  request.form['direccion']
+		formacion =  request.form['formacion']
+		calificacion =  request.form['calificacion']
+		id_colegio =  request.form['id_colegio']
+		sql = """ update docentes  set (nombre,email,telefono,direccion,formacion,calificacion,id_colegio) = 
+		('%s','%s',%s,'%s','%s',%s,%s)
+		where rut = %s"""%(nombre,email,telefono,direccion,formacion,calificacion,id_colegio,rut)
+		cur.execute(sql)
+		conn.commit()
+		return  redirect(request.referrer)
 
 @app.route('/colegios')
 def colegios():
@@ -129,6 +166,20 @@ def borrarcolegio(id):
 	conn.commit()
 	return  redirect(request.referrer)
 
+@app.route('/colegios/<id>/update', methods=['GET', 'POST'])
+def updatecolegio(id):
+	if request.method == 'POST':
+		nombre =  request.form['nombre']
+		director =  request.form['director']
+		telefono =  request.form['telefono']
+		categoria =  request.form['categoria']
+		sql = """ update colegios set(nombre,director,telefono,categoria,id_colegio) = 
+		('%s','%s',%s,'%s')
+		where id = %s"""%(nombre,director,telefono,categoria,id)
+		cur.execute(sql)
+		conn.commit()
+		return redirect(request.referrer)
+
 @app.route('/cursos')
 def cursos():
 	sql ="""
@@ -156,7 +207,7 @@ def cursos():
 @app.route('/cursos/<id>')
 def cursosid(id):
 	sql ="""
-	select D.rut, D.nombre, I.asignatura from docentes as D JOIN imparte as I ON D.rut = I.rut JOIN cursos as CU
+	select D.rut, D.nombre, D.asignatura from docentes as D JOIN imparte as I ON D.rut = I.rut JOIN cursos as CU
 	ON CU.id_curso = I.id_curso where CU.id_curso = %s
 	"""%id
 	cur.execute(sql)
@@ -197,3 +248,27 @@ def borrarcurso(id):
 	cur.execute(sql)
 	conn.commit()
 	return  redirect(request.referrer)
+	
+@app.route('/cursos/<id>/update', methods=['GET', 'POST'])
+def updatecurso(id):
+	if request.method == 'POST' and request.form['action'] == '1':
+		promedio =  request.form['promedio']
+		cantidadEstudiantes =  request.form['cantidadEstudiantes']
+		id_colegio =  request.form['id_colegio']
+		id_nivel =  request.form['id_nivel']
+		sql = """ update cursos set(promedio,cantidadEstudiantes,id_colegio,id_nivel) = 
+		('%s','%s',%s,'%s')
+		where id = %s"""%(promedio,cantidadEstudiantes,id_colegio,id_nivel,id)
+		cur.execute(sql)
+		conn.commit()
+		return redirect(request.referrer)
+
+	elif request.method == 'POST' and request.form['action'] == '2':
+		rut =  request.form['rut']
+		asignatura =  request.form['asignatura']
+		sql = """ INSERT INTO imparte(rut,asignatura) = 
+		('%s','%s')
+		where id = %s"""%(rut,asignatura,id)
+		cur.execute(sql)
+		conn.commit()
+		return redirect(request.referrer)

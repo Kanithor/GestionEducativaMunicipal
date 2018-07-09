@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<center>
+  <h1>Editar docente</h1>
+</center>
+
+{% from "_form.html" import render_field %}
+
+<div class="row">
+  <div class="col-md-offset-2 col-md-8">
+    <form name="editDocente" method ="POST">
+      <div class="row control-group">
+        <div class="form-group">
+          {{ render_field(form.nombre, class="form-control", placeholder="Juan Pérez", value=docente[2] ) }}
+        </div>
+      </div>
+      <div class="row control-group">
+        <div class="form-group">
+          {{ render_field(form.telefono, class="form-control", placeholder="999999999", value=docente[3] ) }}
+        </div>
+      </div>
+      <div class="row control-group">
+        <div class="form-group">
+          {{ render_field(form.email, class="form-control", placeholder="ols@asdf.com", value=docente[4] ) }}
+        </div>
+      </div>
+      <div class="row control-group">
+        <div class="form-group">
+          {{ render_field(form.calificacion, class="form-control", placeholder="1-4", value=docente[5] ) }}
+        </div>
+      </div>
+      <div class="row control-group">
+        <div class="form-group">
+          {{ render_field(form.direccion, class="form-control", placeholder="Cataluña #1111", value=docente[6] ) }}
+        </div>
+      </div>
+      <div class="row control-group">
+        <div class="form-group">
+          {{ render_field(form.formacion, class="form-control", placeholder="Pedagogía en Matemática", value=docente[7] ) }}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+
+{% endblock %}
