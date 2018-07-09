@@ -96,6 +96,23 @@ def borrardocente(rut):
 	conn.commit()
 	return  redirect(request.referrer)
 
+@app.route('/docentes/<rut>/update', methods=['GET', 'POST'])
+def updatedocente(rut):
+	if request.method == 'POST':
+		nombre =  request.form['nombre']
+		email =  request.form['email']
+		telefono =  request.form['telefono']
+		direccion =  request.form['direccion']
+		formacion =  request.form['formacion']
+		calificacion =  request.form['calificacion']
+		id_colegio =  request.form['id_colegio']
+		sql = """ update docentes  set (nombre,email,telefono,direccion,formacion,calificacion,id_colegio) = 
+		('%s','%s',%s,'%s','%s',%s,%s)
+		where rut = %s"""%(nombre,email,telefono,direccion,formacion,calificacion,id_colegio,rut)
+		cur.execute(sql)
+		conn.commit()
+		return  redirect(request.referrer)
+
 @app.route('/colegios')
 def colegios():
 	sql ="""
