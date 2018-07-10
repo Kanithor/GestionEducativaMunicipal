@@ -278,21 +278,21 @@ $(document).ready(function(){
                         <div class="modal-body">
                             <h3>Ingrese los siguientes datos:</h3>
                             <br>
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" role="form" action="/cursos/nuevo" method="post" enctype="application/x-www-form-urlencoded">
                                     <div class="form-group">
                                         <label class="col-md-12">Promedio</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="" class="form-control form-control-line"> </div>
+                                            <input type="text" name="promedio" placeholder="" class="form-control form-control-line"> </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Cantidad de Estudiantes</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="" class="form-control form-control-line"> </div>
+                                            <input type="text" name="cantidadEstudiantes" placeholder="" class="form-control form-control-line"> </div>
                                     </div>
                                     <div class="form-group">
                                             <label class="col-sm-12">Seleccionar Establecimiento</label>
                                             <div class="col-sm-12">
-                                                <select class="form-control form-control-line">
+                                                <select class="form-control form-control-line" name="id_colegio">
                                                     {% for colegio in colegios %}
                                                     <option value="{{colegio[0]}}">{{colegio[1]}}</option>
                                                     {% endfor %}
@@ -302,7 +302,7 @@ $(document).ready(function(){
                                     <div class="form-group">
                                             <label class="col-sm-12">Seleccionar Nivel</label>
                                             <div class="col-sm-12">
-                                                <select class="form-control form-control-line">
+                                                <select class="form-control form-control-line" name="id_nivel">
                                                     {% for nivel in niveles %}
                                                     <option value="{{nivel[0]}}">{{nivel[1]}}</option>
                                                     {% endfor %}
@@ -311,7 +311,7 @@ $(document).ready(function(){
                                     </div>
                                     <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-primary">Confirmar</button>
+                                            <button type="submit" class="btn btn-primary">Confirmar</button>
                                     </div>
                                 </form>
                         </div>

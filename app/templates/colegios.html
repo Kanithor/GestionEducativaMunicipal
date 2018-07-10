@@ -276,37 +276,37 @@ $(document).ready(function(){
                         <div class="modal-body">
                             <h3>Ingrese los siguientes datos:</h3>
                             <br>
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" role="form" action="/colegios/nuevo" method="post" enctype="application/x-www-form-urlencoded">
                                     <div class="form-group">
                                         <label class="col-md-12">Nombre</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Nombre Establecimiento" class="form-control form-control-line"> </div>
+                                            <input type="text" name="nombre" placeholder="Nombre Establecimiento" class="form-control form-control-line"> </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Director</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Nombre Director" class="form-control form-control-line"> </div>
+                                            <input type="text" name="director" placeholder="Nombre Director" class="form-control form-control-line"> </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Número de Teléfono</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Número Establecimiento" class="form-control form-control-line"> </div>
+                                            <input type="number" name="telefono" placeholder="Número Telefono" class="form-control form-control-line"> </div>
                                     </div>
                                     <div class="form-group">
                                             <label class="col-sm-12">Categoría Establecimiento</label>
                                             <div class="col-sm-12">
-                                                <select class="form-control form-control-line">
-                                                    <option value="0">0 (Bajo)</option>
-                                                    <option value="1">1 (Intermedio)</option>
-                                                    <option value="2">2 (Alto)</option>
+                                                <select class="form-control form-control-line" name="categoria">
+                                                    <option value="0">Bajo</option>
+                                                    <option value="1">Intermedio</option>
+                                                    <option value="2">Alto</option>
                                                 </select>
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary">Confirmar</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Confirmar</button>
                                     </div>
-                                </form>
+                            </form>
                         </div>
                     </div>
                 </div>
